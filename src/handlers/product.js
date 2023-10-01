@@ -51,7 +51,6 @@ const deleteProduct = async (req, res) => {
 
 const getProduct = async (req, res) => {
   if (!req?.params?.id) return res.status(400).json({ message: 'Product ID required.' });
-  console.log(req.params.id);
   const product = await Product.findOne({ id: req.params.id }).exec();
   if (!product) {
     return res.status(204).json({ message: `No Product matches ID ${req.params.id}.` });

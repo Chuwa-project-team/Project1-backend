@@ -32,7 +32,6 @@ const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await db.User.findOne({ email });
-    console.log(user.name);
     if (!user) {
       return res.status(400).json({
         message: 'User not found',
@@ -59,7 +58,6 @@ const signin = async (req, res, next) => {
     }
     throw new Error('Invalid Email/Password');
   } catch (err) {
-    console.log(err);
     return next({
       status: 400,
       message: 'Invalid Email/Password',
