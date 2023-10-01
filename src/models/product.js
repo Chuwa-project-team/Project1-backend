@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
-  name: {
+  id: {
     type: String,
     unique: true,
     required: true,
@@ -15,6 +15,14 @@ const productSchema = new Schema({
   createBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+  },
+  createDate: {
+    type: Date,
+    default: Date.now,
+  },
+  updateDate: {
+    type: Date,
+    default: Date.now,
   },
 });
 

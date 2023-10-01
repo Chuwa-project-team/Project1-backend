@@ -7,13 +7,13 @@ const getAllProducts = async function (req, res) {
 };
 
 const createNewProduct = async (req, res) => {
-  if (!req?.body?.name) {
-    return res.status(400).json({ message: 'Product name are required' });
+  if (!req?.body?.id) {
+    return res.status(400).json({ message: 'Product id are required' });
   }
 
   try {
     const result = await Product.create({
-      name: req.body.name,
+      id: req.body.id,
       imageUrl: req.body.imageUrl,
     });
 
@@ -29,11 +29,10 @@ const updateProduct = async (req, res) => {
     return res.status(400).json({ message: 'ID parameter is required.' });
   }
 
-  const product = await Product.findOne({ _id: req.body.id }).exec();
+  const product = await Product.findOne({ id: req.body.id }).exec();
   if (!product) {
     return res.status(204).json({ message: `No Product matches ID ${req.body.id}.` });
   }
-  if (req.body?.name) product.name = req.body.name;
   if (req.body?.imageUrl) product.imageUrl = req.body.imageUrl;
   const result = await product.save();
   return res.json(result);
@@ -42,18 +41,18 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   if (!req?.body?.id) return res.status(400).json({ message: 'Product ID required.' });
 
-  const product = await Product.findOne({ _id: req.body.id }).exec();
+  const product = await Product.findOne({ id: req.body.id }).exec();
   if (!product) {
     return res.status(204).json({ message: `No Product matches ID ${req.body.id}.` });
   }
-  const result = await Product.deleteOne({ _id: req.body.id });
+  const result = await Product.deleteOne({ id: req.body.id });
   return res.json(result);
 };
 
 const getProduct = async (req, res) => {
   if (!req?.params?.id) return res.status(400).json({ message: 'Product ID required.' });
-
-  const product = await Product.findOne({ _id: req.params.id }).exec();
+  console.log(req.params.id);
+  const product = await Product.findOne({ id: req.params.id }).exec();
   if (!product) {
     return res.status(204).json({ message: `No Product matches ID ${req.params.id}.` });
   }
