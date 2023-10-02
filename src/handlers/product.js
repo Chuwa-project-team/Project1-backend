@@ -7,13 +7,13 @@ const getAllProducts = async function (req, res) {
 };
 
 const createNewProduct = async (req, res) => {
-  if (!req?.body?.id) {
-    return res.status(400).json({ message: 'Product id are required' });
+  if (!req?.body?.name) {
+    return res.status(400).json({ message: 'Product name are required' });
   }
 
   try {
     const result = await Product.create({
-      id: req.body.id,
+      name: req.body.name,
       imageUrl: req.body.imageUrl,
     });
 
@@ -25,13 +25,13 @@ const createNewProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  if (!req?.body?.id) {
-    return res.status(400).json({ message: 'ID parameter is required.' });
+  if (!req?.body?.name) {
+    return res.status(400).json({ message: 'name parameter is required.' });
   }
 
-  const product = await Product.findOne({ id: req.body.id }).exec();
+  const product = await Product.findOne({ name: req.body.name }).exec();
   if (!product) {
-    return res.status(204).json({ message: `No Product matches ID ${req.body.id}.` });
+    return res.status(204).json({ message: `No Product matches name ${req.body.name}.` });
   }
   if (req.body?.imageUrl) product.imageUrl = req.body.imageUrl;
   const result = await product.save();
@@ -39,21 +39,21 @@ const updateProduct = async (req, res) => {
 };
 
 const deleteProduct = async (req, res) => {
-  if (!req?.body?.id) return res.status(400).json({ message: 'Product ID required.' });
+  if (!req?.body?.name) return res.status(400).json({ message: 'Product name required.' });
 
-  const product = await Product.findOne({ id: req.body.id }).exec();
+  const product = await Product.findOne({ name: req.body.name }).exec();
   if (!product) {
-    return res.status(204).json({ message: `No Product matches ID ${req.body.id}.` });
+    return res.status(204).json({ message: `No Product matches name ${req.body.name}.` });
   }
-  const result = await Product.deleteOne({ id: req.body.id });
+  const result = await Product.deleteOne({ name: req.body.name });
   return res.json(result);
 };
 
 const getProduct = async (req, res) => {
-  if (!req?.params?.id) return res.status(400).json({ message: 'Product ID required.' });
-  const product = await Product.findOne({ id: req.params.id }).exec();
+  if (!req?.params?.name) return res.status(400).json({ message: 'Product name required.' });
+  const product = await Product.findOne({ name: req.params.name }).exec();
   if (!product) {
-    return res.status(204).json({ message: `No Product matches ID ${req.params.id}.` });
+    return res.status(204).json({ message: `No Product matches name ${req.params.name}.` });
   }
   return res.json(product);
 };

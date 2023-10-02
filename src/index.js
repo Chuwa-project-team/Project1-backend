@@ -18,7 +18,7 @@ app.get('/api/users/signin', signin);
 app.post('/api/products', createNewProduct);
 app.put('/api/products', updateProduct);
 app.delete('/api/products', deleteProduct);
-app.get('/api/products/:id', loginRequired, getProduct);
+app.get('/api/products/:name', loginRequired, getProduct);
 app.use((err, req, res, next) => {
   if (err) {
     res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
