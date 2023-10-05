@@ -10,12 +10,11 @@ const productSchema = new Schema({
   },
   description: {
     type: String,
-    unique: true,
-    required: true,
   },
   category: {
     type: String,
     enum: ['Category1', 'Category2', 'Category3', 'Category4', 'Category5'],
+    default: 'Category1',
   },
   price: {
     type: Number,

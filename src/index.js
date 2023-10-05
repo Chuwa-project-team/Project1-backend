@@ -4,7 +4,7 @@ const Express = require('express');
 const cors = require('cors');
 const { signup, signin } = require('./handlers/auth.js');
 const {
-  createNewProduct, updateProduct, deleteProduct, getProduct,
+  createNewProduct, updateProduct, deleteProduct, getProduct, getAllProducts,
 } = require('./handlers/product.js');
 const { loginRequired } = require('./middlewares/auth.js');
 
@@ -19,6 +19,7 @@ app.post('/api/products', createNewProduct);
 app.put('/api/products', updateProduct);
 app.delete('/api/products', deleteProduct);
 app.get('/api/products/:name', loginRequired, getProduct);
+app.get('/api/products', getAllProducts);
 app.use((err, req, res, next) => {
   if (err) {
     res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });

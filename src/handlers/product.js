@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 
 const getAllProducts = async function (req, res) {
+  console.log('getAllProducts');
   const products = await Product.find();
   if (!products) return res.status(204).json({ message: 'No Products found.' });
   return res.json(products);
@@ -15,6 +16,8 @@ const createNewProduct = async (req, res) => {
     const result = await Product.create({
       name: req.body.name,
       imageUrl: req.body.imageUrl,
+      price: req.body.price,
+      description: req.body.description,
     });
 
     return res.status(201).json(result);
