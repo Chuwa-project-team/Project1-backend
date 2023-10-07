@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3050;
 app.use(Express.json());
 app.use(cors());
 app.post('/api/users/signup', signup);
-app.get('/api/users/signin', signin);
+app.post('/api/users/signin', signin);
 app.post('/api/products', createNewProduct);
 app.put('/api/products', updateProduct);
 app.delete('/api/products', deleteProduct);

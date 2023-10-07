@@ -5,12 +5,11 @@ const signup = async (req, res) => {
   try {
     const user = await db.User.create(req.body);
     const {
-      id, username, email, role,
+      id, email, role,
     } = user;
     const token = jwt.sign(
       {
         id,
-        username,
         email,
         role,
       },
@@ -18,7 +17,6 @@ const signup = async (req, res) => {
     );
     return res.status(200).json({
       id,
-      username,
       email,
       token,
     });
@@ -39,11 +37,10 @@ const signin = async (req, res, next) => {
     }
     const isMatch = await user.comparePassword(password);
     if (isMatch) {
-      const { id, username, role } = user;
+      const { id, role } = user;
       const token = jwt.sign(
         {
           id,
-          username,
           email,
           role,
         },
@@ -51,7 +48,6 @@ const signin = async (req, res, next) => {
       );
       return res.status(200).json({
         id,
-        username,
         email,
         token,
       });
