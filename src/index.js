@@ -13,10 +13,14 @@ const PORT = process.env.PORT || 3050;
 
 app.use(Express.json());
 app.use(cors());
+app.use((req, res, next) => {
+  console.log(req.method, req.path, req.body);
+  next();
+});
 app.post('/api/users/signup', signup);
 app.post('/api/users/signin', signin);
 app.post('/api/products', createNewProduct);
-app.put('/api/products', updateProduct);
+app.put('/api/product/:name', updateProduct);
 app.delete('/api/products', deleteProduct);
 app.get('/api/products/:name', loginRequired, getProduct);
 app.get('/api/products', getAllProducts);

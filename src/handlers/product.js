@@ -28,13 +28,14 @@ const createNewProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  if (!req?.body?.name) {
+  console.log(!req?.params?.name);
+  if (!req?.params?.name) {
     return res.status(400).json({ message: 'name parameter is required.' });
   }
 
-  const product = await Product.findOne({ name: req.body.name }).exec();
+  const product = await Product.findOne({ name: req.params?.name }).exec();
   if (!product) {
-    return res.status(204).json({ message: `No Product matches name ${req.body.name}.` });
+    return res.status(204).json({ message: `No Product matches name ${req.params?.name}.` });
   }
   if (req.body?.imageUrl) product.imageUrl = req.body.imageUrl;
   const result = await product.save();
