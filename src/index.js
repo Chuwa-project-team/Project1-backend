@@ -2,11 +2,11 @@
 require('dotenv').config();
 const Express = require('express');
 const cors = require('cors');
-const { signup, signin } = require('./handlers/auth.js');
+const { signup, signin } = require('./handlers/auth');
 const {
   createNewProduct, updateProduct, deleteProduct, getProduct, getAllProducts,
-} = require('./handlers/product.js');
-const { loginRequired } = require('./middlewares/auth.js');
+} = require('./handlers/product');
+const { loginRequired } = require('./middlewares/auth');
 
 const app = Express();
 const PORT = process.env.PORT || 3050;
@@ -24,6 +24,7 @@ app.put('/api/product/:name', updateProduct);
 app.delete('/api/products', deleteProduct);
 app.get('/api/products/:name', loginRequired, getProduct);
 app.get('/api/products', getAllProducts);
+
 app.use((err, req, res, next) => {
   if (err) {
     res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });

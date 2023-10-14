@@ -28,7 +28,6 @@ const createNewProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  console.log(!req?.params?.name);
   if (!req?.params?.name) {
     return res.status(400).json({ message: 'name parameter is required.' });
   }
