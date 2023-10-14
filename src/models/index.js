@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./user');
 const Product = require('./product');
+const Coupon = require('./coupon');
 
 const connectDB = async () => {
   try {
@@ -15,4 +16,4 @@ const connectDB = async () => {
 
 connectDB();
 
-module.exports = { User, Product };
+module.exports = { User, Product, Coupon };

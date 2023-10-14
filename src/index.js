@@ -6,6 +6,7 @@ const { signup, signin } = require('./handlers/auth');
 const {
   createNewProduct, updateProduct, deleteProduct, getProduct, getAllProducts,
 } = require('./handlers/product');
+const { validateCoupon, createCoupon } = require('./handlers/coupon');
 const { loginRequired } = require('./middlewares/auth');
 
 const app = Express();
@@ -24,7 +25,8 @@ app.put('/api/product/:name', updateProduct);
 app.delete('/api/products', deleteProduct);
 app.get('/api/products/:name', loginRequired, getProduct);
 app.get('/api/products', getAllProducts);
-
+app.get('/api/coupon/:code', validateCoupon);
+app.post('/api/coupon', createCoupon);
 app.use((err, req, res, next) => {
   if (err) {
     res.status(err.status || 500).json({ message: err.message || 'Internal Server Error' });
