@@ -27,7 +27,7 @@ const productSchema = new Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
+    default: 'https://m.media-amazon.com/images/I/612kg3rGyYL._AC_UY218_.jpg',
   },
   createBy: {
     type: Schema.Types.ObjectId,

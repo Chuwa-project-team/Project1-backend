@@ -17,7 +17,9 @@ const createNewProduct = async (req, res) => {
       name: req.body.name,
       imageUrl: req.body.imageUrl,
       price: req.body.price,
+      quantity: req.body.quantity,
       description: req.body.description,
+      category: req.body.category,
     });
 
     return res.status(201).json(result);
@@ -36,6 +38,10 @@ const updateProduct = async (req, res) => {
   if (!product) {
     return res.status(204).json({ message: `No Product matches name ${req.params?.name}.` });
   }
+  if (req.body?.price) product.price = req.body.price;
+  if (req.body?.description) product.description = req.body.description;
+  if (req.body?.category) product.category = req.body.category;
+  if (req.body?.quantity) product.quantity = req.body.quantity;
   if (req.body?.imageUrl) product.imageUrl = req.body.imageUrl;
   const result = await product.save();
   return res.json(result);
