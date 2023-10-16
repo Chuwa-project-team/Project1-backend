@@ -51,9 +51,8 @@ const signin = async (req, res, next) => {
         token,
       });
     }
-    return next({
-      status: 400,
-      message: 'Invalid Email/Password',
+    return res.status(400).json({
+      message: 'User not found',
     });
   } catch (err) {
     return next({
