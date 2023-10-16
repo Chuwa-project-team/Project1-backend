@@ -7,7 +7,7 @@ const {
   createNewProduct, updateProduct, deleteProduct, getProduct, getAllProducts,
 } = require('./handlers/product');
 const { validateCoupon, createCoupon } = require('./handlers/coupon');
-const { loginRequired } = require('./middlewares/auth');
+const { loginRequired, ensureAdminAuthorization } = require('./middlewares/auth');
 
 const app = Express();
 const PORT = process.env.PORT || 3050;
@@ -20,10 +20,10 @@ app.use((req, res, next) => {
 });
 app.post('/api/users/signup', signup);
 app.post('/api/users/signin', signin);
-app.post('/api/products', createNewProduct);
-app.put('/api/product/:name', updateProduct);
-app.delete('/api/products', deleteProduct);
-app.get('/api/products/:name', loginRequired, getProduct);
+app.post('/api/products', ensureAdminAuthorization, createNewProduct);
+app.put('/api/product/:name', ensureAdminAuthorization, updateProduct);
+app.delete('/api/products', ensureAdminAuthorization, deleteProduct);
+app.get('/api/products/:name', getProduct);
 app.get('/api/products', getAllProducts);
 app.get('/api/coupon/:code', validateCoupon);
 app.post('/api/coupon', createCoupon);

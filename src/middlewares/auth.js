@@ -23,7 +23,7 @@ exports.ensureAdminAuthorization = async function (req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Bearer token
     const decoded = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    if (decoded && decoded.id === req.params.id && req.params.role >= 5) {
+    if (decoded && decoded.role >= 777) {
       return next();
     }
     return next({

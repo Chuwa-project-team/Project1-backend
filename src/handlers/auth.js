@@ -37,23 +37,24 @@ const signin = async (req, res, next) => {
     }
     const isMatch = await user.comparePassword(password);
     if (isMatch) {
-      const { id, role } = user;
+      const { role } = user;
       const token = jwt.sign(
         {
-          id,
           email,
           role,
         },
         process.env.SECRET_KEY,
       );
       return res.status(200).json({
-        id,
         email,
         role,
         token,
       });
     }
-    throw new Error('Invalid Email/Password');
+    return next({
+      status: 400,
+      message: 'Invalid Email/Password',
+    });
   } catch (err) {
     return next({
       status: 400,
